@@ -30,8 +30,6 @@ jobs:
           docker pull ros:galactic
           docker run -v $GITHUB_WORKSPACE:$GITHUB_WORKSPACE -w $GITHUB_WORKSPACE ros:galactic \
           bash -c "
-          git clone https://github.com/UniversalRobots/Universal_Robots_ROS2_Driver.git src/Universal_Robots_ROS2_Driver \
-          && vcs import --skip-existing < src/Universal_Robots_ROS2_Driver/Universal_Robots_ROS2_Driver.repos src \
           && apt-get update \
           && rosdep update \
           && rosdep install --from-paths src --ignore-src -y -r --rosdistro=galactic \
