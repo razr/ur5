@@ -17,7 +17,7 @@ jobs:
           docker build -t $GITHUB_REPOSITORY -f ./.devcontainer/Dockerfile .
           docker run -v $GITHUB_WORKSPACE:$GITHUB_WORKSPACE -w $GITHUB_WORKSPACE $GITHUB_REPOSITORY \
           bash -c "
-          git clone https://github.com/UniversalRobots/Universal_Robots_ROS2_Driver.git src/UniversalRobots/Universal_Robots_ROS2_Driver \
+          git clone https://github.com/UniversalRobots/Universal_Robots_ROS2_Driver.git src/Universal_Robots_ROS2_Driver \
           && vcs import --skip-existing < src/Universal_Robots_ROS2_Driver/Universal_Robots_ROS2_Driver.repos src \
           && apt-get update \
           && rosdep update \
