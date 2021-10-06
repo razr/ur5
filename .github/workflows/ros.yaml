@@ -36,7 +36,7 @@ jobs:
           && cp -r install/* /opt/ros/galactic/.
           "
           docker commit `docker ps -l | grep galactic | awk '{print $1;}'` ros:galactic.ur5driver
-          docker save ros:galactic.ur5driver | gzip | pv > ./ros.galactic.ur5driver.tar.gz
+          docker save ros:galactic.ur5driver | gzip > ./ros.galactic.ur5driver.tar.gz
       - 
         uses: actions/upload-artifact@v2
         with:
