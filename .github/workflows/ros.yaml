@@ -22,5 +22,5 @@ jobs:
           && apt-get update \
           && rosdep update \
           && rosdep install --from-paths src --ignore-src -y -r --rosdistro=galactic \
-          && sudo colcon build --merge-install --install-base /opt/ros/galactic --packages-up-to ur_robot_driver --cmake-args '-DBUILD_TESTING:BOOL=OFF -DCMAKE_BUILD_TYPE=Release'
+          && colcon build --packages-up-to ur_robot_driver --cmake-args '-DCMAKE_BUILD_TYPE=Release'
           "
