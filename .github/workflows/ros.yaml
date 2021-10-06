@@ -21,6 +21,6 @@ jobs:
           && vcs import --skip-existing < src/Universal_Robots_ROS2_Driver/Universal_Robots_ROS2_Driver.repos src \
           && apt-get update \
           && rosdep update \
-          && rosdep install --from-paths src --ignore-src -y --rosdistro=${ROS_DISTRO} \
-          && sudo colcon build --merge-install --install-base /opt/ros/${ROS_DISTRO} --packages-up-to ur_robot_driver --cmake-args '-DBUILD_TESTING:BOOL=OFF -DCMAKE_BUILD_TYPE=Release'
+          && rosdep install --from-paths src --ignore-src -y -r --rosdistro=galactic \
+          && sudo colcon build --merge-install --install-base /opt/ros/galactic --packages-up-to ur_robot_driver --cmake-args '-DBUILD_TESTING:BOOL=OFF -DCMAKE_BUILD_TYPE=Release'
           "
