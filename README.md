@@ -6,7 +6,7 @@ It provides Docker images for the [Universal Robots ROS2 Driver](https://github.
 
 ### Using GUI
 
-Go to the ```Action``` tab, find the latest ```ROS`` build, go inside the latest workflow run, download, and unzip artifacts called ```UR5 driver docker image```. This archive contains archived Docker image.
+Go to the ```Action``` tab, find the latest ```ROS``` build, go inside the latest workflow run, download, and unzip artifacts called ```UR5 driver docker image```. This archive contains archived Docker image.
 
 ### Using command line
 
