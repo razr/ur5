@@ -14,7 +14,7 @@ Go to the [```Developer settings```](https://github.com/settings/tokens) and gen
 
 ```bash
 $ token=<my_token>
-# rertieve all artifacts
+# retrieve all artifacts
 $ curl -i -u <my github name>:$token -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/razr/ur5/actions/artifacts | grep archive_download_url
       "archive_download_url": "https://api.github.com/repos/razr/ur5/actions/artifacts/100185602/zip",
 
