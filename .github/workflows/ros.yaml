@@ -34,7 +34,7 @@ jobs:
           && rosdep update \
           && rosdep install --from-paths src --ignore-src -y -r --rosdistro=galactic \
           && cp -r install/* /opt/ros/galactic/. \
-          && sed -i "\$i export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:/opt/ros/galactic/lib/x86_64-linux-gnu" /ros_entrypoint.sh
+          && sed -i 's#exec.*#export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:/opt/ros/galactic/lib/x86_64-linux-gnu\nexec \"\$@\"#' /ros_entrypoint.sh
           "
           docker commit `docker ps -l | grep galactic | awk '{print $1;}'` ros:galactic.ur5driver
           docker save ros:galactic.ur5driver | gzip > ./ros.galactic.ur5driver.tar.gz
