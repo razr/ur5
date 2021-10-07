@@ -22,9 +22,15 @@ $ curl -i -u <my github name>:$token -H "Accept: application/vnd.github.v3+json"
 $ curl -u <my github name>:$token -L -H "Accept: application/vnd.github.v3+json"  https://api.github.com/repos/razr/ur5/actions/artifacts/100185602/zip --output ros.galactic.ur5driver.zip
 ```
 
-### Deploy
+## Deploy
 
 ```bash
-$ unzip ros.galactic.ur5driver.tar.gz
+$ unzip ros.galactic.ur5driver.zip
 $ docker load -i ros.galactic.ur5driver.tar.gz
+```
+
+## Use
+
+```bash
+$ docker run --net=host -p63352:63352 ros:galactic.ur5driver ros2 launch ur_bringup ur_control.launch.py ur_type:=ur5e robot_ip:=xxx.xxx.xxx.xxx use_fake_hardware:=true launch_rviz:=false
 ```
