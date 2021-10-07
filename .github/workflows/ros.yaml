@@ -20,9 +20,9 @@ jobs:
           git clone https://github.com/UniversalRobots/Universal_Robots_ROS2_Driver.git src/Universal_Robots_ROS2_Driver \
           && vcs import --skip-existing < src/Universal_Robots_ROS2_Driver/Universal_Robots_ROS2_Driver.repos src \
           && apt-get update \
-          && rosdep update \
+          && rosdep update --rosdistro=galactic \
           && rosdep install --from-paths src --ignore-src -y -r --rosdistro=galactic \
-          && colcon build --merge-install --packages-up-to ur_robot_driver --cmake-args '-DCMAKE_BUILD_TYPE=Release'
+          && colcon build --merge-install --cmake-args '-DCMAKE_BUILD_TYPE=Release'
           "
       -
         name: UR5 Driver install
@@ -31,7 +31,7 @@ jobs:
           docker run -v $GITHUB_WORKSPACE:$GITHUB_WORKSPACE -w $GITHUB_WORKSPACE ros:galactic \
           bash -c "
           apt-get update \
-          && rosdep update \
+          && rosdep update --rosdistro=galactic \
           && rosdep install --from-paths src --ignore-src -y -r --rosdistro=galactic \
           && cp -r install/* /opt/ros/galactic/. \
           && sed -i 's#exec.*#export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:/opt/ros/galactic/lib/x86_64-linux-gnu\nexec \"\$@\"#' /ros_entrypoint.sh
