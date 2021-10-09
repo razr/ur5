@@ -1,0 +1,47 @@
+name: UR5 MoveIt
+
+on:
+  pull_request:
+  workflow_dispatch:
+    
+jobs:
+  ur5-driver:
+    runs-on: ubuntu-latest
+    steps:
+      - 
+        name: Checkout code
+        uses: actions/checkout@v2
+      -
+        name: UR5 MoveIt build
+        run: |
+          docker build -t $GITHUB_REPOSITORY -f ./.devcontainer/Dockerfile .
+          docker run -v $GITHUB_WORKSPACE:$GITHUB_WORKSPACE -w $GITHUB_WORKSPACE $GITHUB_REPOSITORY \
+          bash -c "
+          git clone https://github.com/UniversalRobots/Universal_Robots_ROS2_Driver.git src/Universal_Robots_ROS2_Driver \
+          && vcs import --skip-existing < src/Universal_Robots_ROS2_Driver/Universal_Robots_ROS2_Driver.repos src \
+          && vcs import src --skip-existing --input src/Universal_Robots_ROS2_Driver/MoveIt_Support.repos \
+          && vcs import src --skip-existing --input src/moveit2/moveit2.repos \
+          && apt-get update \
+          && rosdep update --rosdistro=galactic \
+          && rosdep install --from-paths src --ignore-src -y -r --rosdistro=galactic \
+          && colcon build --merge-install --cmake-args '-DCMAKE_BUILD_TYPE=Release'
+          "
+      -
+        name: UR5 MoveIt docker
+        run: |
+          docker pull ros:galactic
+          docker run -v $GITHUB_WORKSPACE:$GITHUB_WORKSPACE -w $GITHUB_WORKSPACE ros:galactic \
+          bash -c "
+          apt-get update \
+          && rosdep update --rosdistro=galactic \
+          && rosdep install --from-paths src --ignore-src -y -r --rosdistro=galactic \
+          && cp -r install/* /opt/ros/galactic/. \
+          && sed -i 's#exec.*#export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:/opt/ros/galactic/lib/x86_64-linux-gnu\nexec \"\$@\"#' /ros_entrypoint.sh
+          "
+          docker commit `docker ps -l | grep galactic | awk '{print $1;}'` ros:galactic.ur5moveit
+          docker save ros:galactic.ur5moveit | gzip > ./ros.galactic.ur5moveit.tar.gz
+      - 
+        uses: actions/upload-artifact@v2
+        with:
+          name: 'UR5 driver docker image'
+          path: ./ros.galactic.ur5moveit.tar.gz
