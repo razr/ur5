@@ -29,8 +29,21 @@ $ unzip ros.galactic.ur5driver.zip
 $ docker load -i ros.galactic.ur5driver.tar.gz
 ```
 
-## Use
+## Launch
 
 ```bash
-$ docker run --net=host -p63352:63352 ros:galactic.ur5driver ros2 launch ur_bringup ur_control.launch.py ur_type:=ur5e robot_ip:=xxx.xxx.xxx.xxx use_fake_hardware:=true launch_rviz:=false
+# with a faked hardware
+$ docker run --net=host ros:galactic.ur5driver bash -c "ros2 launch ur_bringup ur_control.launch.py ur_type:=ur5e robot_ip:=xxx.xxx.xxx.xxx use_fake_hardware:=true launch_rviz:=false"
+
+# ur5
+$ docker run --net=host ros:galactic.ur5driver bash -c "ros2 launch ur_bringup ur_control.launch.py ur_type:=ur5e robot_ip:=xxx.xxx.xxx.xxx launch_rviz:=false"
+```
+
+```bash
+$ docker run --net=host ros:galactic.ur5driver bash -c "ros2 control list_controllers"
+force_torque_sensor_broadcaster[ur_controllers/ForceTorqueStateBroadcaster] active
+io_and_status_controller[ur_controllers/GPIOController] active
+speed_scaling_state_broadcaster[ur_controllers/SpeedScalingStateBroadcaster] active
+joint_trajectory_controller[joint_trajectory_controller/JointTrajectoryController] active
+joint_state_broadcaster[joint_state_broadcaster/JointStateBroadcaster] active
 ```
