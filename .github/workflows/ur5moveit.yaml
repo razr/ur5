@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     
 jobs:
-  ur5-driver:
+  ur5-moveit:
     runs-on: ubuntu-latest
     steps:
       - 
@@ -27,7 +27,7 @@ jobs:
           && colcon build --merge-install --cmake-args '-DCMAKE_BUILD_TYPE=Release'
           "
       -
-        name: UR5 MoveIt docker
+        name: UR5 MoveIt image
         run: |
           docker pull ros:galactic
           docker run -v $GITHUB_WORKSPACE:$GITHUB_WORKSPACE -w $GITHUB_WORKSPACE ros:galactic \
@@ -43,5 +43,5 @@ jobs:
       - 
         uses: actions/upload-artifact@v2
         with:
-          name: 'UR5 driver docker image'
+          name: 'UR5 MoveIt docker image'
           path: ./ros.galactic.ur5moveit.tar.gz
