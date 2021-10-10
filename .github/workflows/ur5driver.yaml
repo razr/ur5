@@ -1,4 +1,4 @@
-name: ROS
+name: UR5 driver
 
 on:
   pull_request:
@@ -25,7 +25,7 @@ jobs:
           && colcon build --merge-install --cmake-args '-DCMAKE_BUILD_TYPE=Release'
           "
       -
-        name: UR5 Driver install
+        name: UR5 Driver image
         run: |
           docker pull ros:galactic
           docker run -v $GITHUB_WORKSPACE:$GITHUB_WORKSPACE -w $GITHUB_WORKSPACE ros:galactic \
@@ -41,5 +41,5 @@ jobs:
       - 
         uses: actions/upload-artifact@v2
         with:
-          name: 'UR5 driver docker image'
+          name: 'UR5 Driver docker image'
           path: ./ros.galactic.ur5driver.tar.gz
