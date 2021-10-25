@@ -13,16 +13,17 @@ Go to the [Actions](https://github.com/razr/ur5/actions) tab, find the latest [U
 Go to the [```Developer settings```](https://github.com/settings/tokens) and generate a token to access the repo via Github API. Use this token in conjunction with your Github name to retrieve build artifacts.
 
 ```bash
-$ token=<my_token>
+token=<my_token>
 # retrieve all artifacts
 $ curl -i -u <my github name>:$token -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/razr/ur5/actions/artifacts | grep archive_download_url
-      "archive_download_url": "https://api.github.com/repos/razr/ur5/actions/artifacts/100185602/zip",
+      "archive_download_url": "https://api.github.com/repos/razr/ur5/actions/artifacts/101172967/zip",
+      "archive_download_url": "https://api.github.com/repos/razr/ur5/actions/artifacts/101166906/zip",
 
 # download the latest one for the UR5 driver
-$ curl -u <my github name>:$token -L -H "Accept: application/vnd.github.v3+json"  https://api.github.com/repos/razr/ur5/actions/artifacts/100185602/zip --output ros.galactic.ur5driver.zip
+curl -u <my github name>:$token -L -H "Accept: application/vnd.github.v3+json"  https://api.github.com/repos/razr/ur5/actions/artifacts/101166906/zip --output ros.galactic.ur5driver.zip
 
 # download the latest one for the UR5 MoveIt
-$ curl -u <my github name>:$token -L -H "Accept: application/vnd.github.v3+json"  https://api.github.com/repos/razr/ur5/actions/artifacts/132431312/zip --output ros.galactic.ur5moveit.zip
+curl -u <my github name>:$token -L -H "Accept: application/vnd.github.v3+json"  https://api.github.com/repos/razr/ur5/actions/artifacts/101172967/zip --output ros.galactic.ur5moveit.zip
 ```
 
 ## Deploy
