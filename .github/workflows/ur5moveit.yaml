@@ -41,7 +41,7 @@ jobs:
           docker commit `docker ps -l | grep galactic | awk '{print $1;}'` ros:galactic.ur5moveit
           docker save ros:galactic.ur5moveit | gzip > ./ros.galactic.ur5moveit.tar.gz
       - 
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: 'UR5 MoveIt docker image'
           path: ./ros.galactic.ur5moveit.tar.gz

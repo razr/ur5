@@ -39,7 +39,7 @@ jobs:
           docker commit `docker ps -l | grep galactic | awk '{print $1;}'` ros:galactic.ur5driver
           docker save ros:galactic.ur5driver | gzip > ./ros.galactic.ur5driver.tar.gz
       - 
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: 'UR5 Driver docker image'
           path: ./ros.galactic.ur5driver.tar.gz
